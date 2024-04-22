@@ -207,8 +207,8 @@ h1 span.Tool { color: rgb(184, 147, 232); }
 }
 
 .loading-gif {
-  width: 40%;
-  height: 60%;
+  width: 30%;
+  height: 50%;
 }
 
 .credits-btn {
@@ -252,21 +252,83 @@ h1 span.Tool { color: rgb(184, 147, 232); }
   }
 }
 
-@media (max-width: 480px) {
-  .photo-grid {
-      grid-template-columns: 1fr; /* Single column layout for very small screens */
-      gap: 10px;
-  }
+@media (min-width: 320px) and (max-width: 480px) {
+  .image-generator h1 { font-size: 1.4rem; }
+  .image-generator p { font-size: 0.7rem; }
 
-  .image-generator h1 {
-      font-size: 1.5rem;
-  }
-
-  .image-generator p {
-      font-size: 1rem;
+  .image-gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns */
+    gap: 10px; /* Adjust the gap to your preference */
+    padding: 0 10px; /* Added some padding to the left and right */
+    top: 25vh; /* Adjusting the vertical positioning */
+    left:0;
   }
 
   .image-gallery .img-card {
-      width: 100%; /* Full width images in single column layout */
+    width: 85%; /* This ensures each card takes full width of its column */
+    margin: auto; /* Center each card within its column */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Optional: Adds shadow for depth (adjust as needed) */
+  }
+
+  .image-gallery .img-card img {
+    width: 100%; /* Ensures the image fills the card */
+    height: auto; /* Keeps the image aspect ratio intact */
+    object-fit: cover; /* Ensures the image covers the card area */
+  }
+
+  .generate-form {
+    height: 8vh;
+    padding: 6px;
+    display: flex;
+    margin-bottom: 25px;
+    background: #fff;
+    align-items: center;
+    border-radius: 30px;
+    margin-top: 15px;
+    justify-content: space-between;
+    z-index: +10;
+  }
+
+  .generate-form .generate-btn {
+    font-size: 0.6rem;
+    height: 80%;
+    width: 35%;
+    padding: 0 25px;
+    z-index: +10;
+  }
+
+  .generate-form {
+    position: relative; 
+    z-index: 10; 
+  }
+
+  .generate-form .prompt-input {
+    font-size: 0.5rem;
+    width: 60%;
+    z-index: +10; 
+  }
+
+  .credits-btn {
+    bottom: 10px;
+    right: 20px;
+  }
+
+  .loading-overlay {
+    display: flex; 
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5); 
+    z-index: 9999; 
+  }
+
+  .loading-gif {
+    width: 40%; 
+    height: auto; 
   }
 }
