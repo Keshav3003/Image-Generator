@@ -230,6 +230,40 @@ h1 span.Tool { color: rgb(184, 147, 232); }
   background-color: #815dd5;
 }
 
+.img-card {
+  position: relative;
+  width: fit-content; /* Set the width to fit the image */
+  margin: 10px;
+}
+
+.img-card img {
+  width: 100%;
+  display: block; 
+}
+
+.download-btn {
+  display: none; 
+  position: absolute;
+  bottom: 8px; 
+  left: 50%;
+  transform: translateX(-50%); 
+  padding: 2px 4px;
+  background-color: #815dd5;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.img-card:hover .download-btn {
+  display: block; 
+}
+
+.download-btn.always-visible {
+  display: block;
+}
+
+
 /* Media Queries for Responsive Adjustments */
 
 @media (min-width: 320px) and (max-width: 480px) {
@@ -284,7 +318,7 @@ h1 span.Tool { color: rgb(184, 147, 232); }
   }
 
   .generate-form .prompt-input {
-    font-size: 0.5rem;
+  
     width: 60%;
     z-index: +10; 
   }
@@ -310,6 +344,12 @@ h1 span.Tool { color: rgb(184, 147, 232); }
   .loading-gif {
     width: 40%; 
     height: auto; 
+  }
+
+  .download-btn {
+    font-size: 10px;
+    padding: 0px 2px;
+    bottom: 4px;
   }
 }
 
@@ -366,7 +406,7 @@ h1 span.Tool { color: rgb(184, 147, 232); }
 }
 
 
-@media (min-width: 768px) and (max-width:1023px) {
+@media (min-width: 768px) and (max-width:1024px) {
   
   .image-generator h1 { 
     font-size: 3.5rem; 
@@ -410,8 +450,6 @@ h1 span.Tool { color: rgb(184, 147, 232); }
 }
 
 }
-
-
 
 @media (min-width: 1024px) and (max-width: 1078px) {
 

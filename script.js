@@ -9,24 +9,40 @@ document.addEventListener('DOMContentLoaded', function() {
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]]; 
+            [array[i], array[j]] = [array[j], array[i]];
         }
     }
 
     shuffleArray(images);
 
-    document.getElementById('img1').src = images[0];
-    document.getElementById('img2').src = images[1];
-    document.getElementById('img3').src = images[2];
-    document.getElementById('img4').src = images[3];
+    for (let i = 1; i <= 4; i++) {
+        const imgElement = document.getElementById('img' + i);
+        imgElement.src = images[i - 1];
+        const downloadBtn = imgElement.nextElementSibling;
+        downloadBtn.href = images[i - 1];
+    }
+
+    function updatePlaceholder() {
+        var inputField = document.getElementById('prompt-input');
+        if (window.innerWidth < 375) {
+            inputField.placeholder = 'Enter details';
+        } else if (window.innerWidth >= 375 && window.innerWidth < 768) {
+            inputField.placeholder = 'Describe Image';
+        } else {
+            inputField.placeholder = 'Try Something like "Panda playing cricket in white clothes"';
+        }
+    }
+
+    updatePlaceholder();
+    window.onresize = updatePlaceholder;
 });
 
-// API Calling
+//API CALLING
 const token = "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";
 const inputTxt = document.getElementById("prompt-input");
 const button = document.getElementById("generate-btn");
+const imageIds = ['img1', 'img2', 'img3', 'img4'];
 
-// Define the query function here to ensure it's in scope for the event listeners
 async function query(promptText) {
     const data = {
         inputs: promptText
@@ -52,8 +68,9 @@ async function query(promptText) {
     const result = await response.blob();
     return result;
 }
+
 button.addEventListener('click', async function (event) {
-    event.preventDefault(); // Prevent the form from submitting traditionally
+    event.preventDefault();
     const userInput = inputTxt.value;
     if (userInput.trim() === '') {
         alert('Please enter some text to generate images.');
@@ -61,10 +78,9 @@ button.addEventListener('click', async function (event) {
     }
 
     const loadingOverlays = document.querySelectorAll('.loading-overlay');
-    loadingOverlays.forEach(overlay => overlay.style.display = 'flex'); // Show loading GIF
+    loadingOverlays.forEach(overlay => overlay.style.display = 'flex');
 
-    const imageIds = ['img1', 'img2', 'img3', 'img4'];
-    const imagePromises = imageIds.map(() => query(userInput)); // Generate an array of promises for image fetches
+    const imagePromises = imageIds.map(() => query(userInput));
 
     try {
         const responses = await Promise.all(imagePromises);
@@ -72,6 +88,10 @@ button.addEventListener('click', async function (event) {
             const imgElement = document.getElementById(imageIds[index]);
             const objectURL = URL.createObjectURL(response);
             imgElement.src = objectURL;
+            const downloadBtn = imgElement.nextElementSibling;
+            downloadBtn.href = objectURL;
+            const filename = `Generated_Img_${index + 1}.jpg`; 
+            downloadBtn.setAttribute('download', filename);
         });
     } catch (error) {
         console.error('Failed to fetch images:', error);
@@ -82,7 +102,6 @@ button.addEventListener('click', async function (event) {
     }
 });
 
-// Handling Enter Key to Trigger Button Click
 inputTxt.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
         event.preventDefault();
