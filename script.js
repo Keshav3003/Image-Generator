@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 //API CALLING
-const token = "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";
+//GATHERING TOKEN FROM THE .env file
 const inputTxt = document.getElementById("prompt-input");
 const button = document.getElementById("generate-btn");
 const imageIds = ['img1', 'img2', 'img3', 'img4'];
